@@ -120,6 +120,7 @@ pipeline {
         always {
             deleteDir()
             script {
+		echo "Delete mount and efs-mount-point directory"
                 // sh('sudo umount ~/efs-mount-point')
                 // sh('sudo rm -rf ~/efs-mount-point')
             }
