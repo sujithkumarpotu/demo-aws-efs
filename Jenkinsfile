@@ -53,8 +53,7 @@ pipeline {
         stage('EFS Path Validation') {
             steps {
                 script {
-                    if ("${params.EFS_PATH}".length() == 0) {
-                        efs_path = '~/efs-mount-point/' + params.EFS_PATH
+                        efs_path = '~/efs-mount-point/' 
  
                         stdout = sh( script: '''#!/bin/bash
                                 set -ex
@@ -70,7 +69,6 @@ pipeline {
                         if (stdout.contains('false')) {
                             error('No such directory on EFS: ' + efs_path)
                         }
-                    }
                 }
             }
         }
