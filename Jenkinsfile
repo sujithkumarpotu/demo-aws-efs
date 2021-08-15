@@ -53,7 +53,7 @@ pipeline {
         stage('EFS Path Validation') {
             steps {
                 script {
-                    if ("${params.EFS_PATH}".length() > 0) {
+                    if ("${params.EFS_PATH}".length() == 0) {
                         efs_path = '~/efs-mount-point/' + params.EFS_PATH
  
                         stdout = sh( script: '''#!/bin/bash
