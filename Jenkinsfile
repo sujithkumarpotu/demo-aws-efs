@@ -8,9 +8,9 @@ pipeline {
     }
  
     environment {
-        CODEFLEX_AWS_ACCOUNT_ID = '77777777777'
-        CODEFLEX_REGION = 'eu-west-1'
-        SECRET_ID = 'codeflex-rds'
+        AWS_ACCOUNT_ID = ''
+        AWS_REGION = 'eu-west-1'
+        SECRET_ID = ''
     }
  
     options {
@@ -26,12 +26,11 @@ pipeline {
         stage('Mount EFS') {
             steps {
                 script {
-                    withAWS(role: 'codeflex-jenkins', roleAccount: env.CODEFLEX_AWS_ACCOUNT_ID, region: env.CODEFLEX_REGION) {
-						sh ('sudo apt-get -y install nfs-utils')
-                        sh('mkdir -p ~/efs-mount-point')
-                        sh('sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport 172.28.81.41:/ ~/efs-mount-point')
-                        sh('sudo chown -R jenkins:jenkins ~/efs-mount-point')
-                    }
+		   sh('aws configure set aws_access_key_id 'AKIAXKDDYNSPFJVR3HIR' aws_secret_access_key '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' region us-east-1')
+		   sh('sudo apt-get -y install nfs-utils')
+                   sh('mkdir -p ~/efs-mount-point')
+                   sh('sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport 172.28.81.41:/ ~/efs-mount-point')
+                   sh('sudo chown -R jenkins:jenkins ~/efs-mount-point')
                 }
             }
         }
@@ -39,12 +38,11 @@ pipeline {
         stage('Check Mount') {
             steps {
                 script {
-                    withAWS(role: 'codeflex-jenkins', roleAccount: env.CODEFLEX_AWS_ACCOUNT_ID, region: env.CODEFLEX_REGION) {
-                        echo '**********************************************'
-                        sh('df -T')
-                        echo '**********************************************'
-                        sh('ls -l ~/efs-mount-point')
-                        echo '**********************************************'
+                    echo '**********************************************'
+                    sh('df -T')
+                    echo '**********************************************'
+                    sh('ls -l ~/efs-mount-point')
+                    echo '**********************************************'
                     }
                 }
             }
@@ -78,10 +76,9 @@ pipeline {
         stage('Copy From S3 to EFS') {
             steps {
                 script {
-                    withAWS(role: 'codeflex-jenkins', roleAccount: env.CODEFLEX_AWS_ACCOUNT_ID, region: env.CODEFLEX_REGION) {
-                        echo '**********************************************'
-                        sh("ls -l ${final_efs_path}")
-                        echo '**********************************************'
+                     echo '**********************************************'
+                     sh("ls -l ${final_efs_path}")
+                     echo '**********************************************'
                     }
                 }
             }
