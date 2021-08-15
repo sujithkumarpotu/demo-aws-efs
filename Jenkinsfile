@@ -100,7 +100,7 @@ pipeline {
             }
         }
  
-        stage('Copy From S3 to EFS') {
+        stage('Copy From from airflow/dags to EFS') {
             steps {
                 script {
                      echo '**********************************************'
@@ -108,6 +108,7 @@ pipeline {
 		     sh("ls -lrtA ")
 		     echo 'Mount locatin files'
                      sh("ls -l ${final_efs_path}")
+		     sh("cp -pR airflow/dags/*.py ${final_efs_path}/dags"
                      echo '**********************************************'
                 }
             }
