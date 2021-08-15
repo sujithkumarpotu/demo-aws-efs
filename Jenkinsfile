@@ -45,6 +45,7 @@ pipeline {
                     sh('df -T')
                     echo '**********************************************'
                     sh('ls -l ~/efs-mount-point')
+		    final_efs_path = '~/efs-mount-point'
                     echo '**********************************************'
                 }
             }
