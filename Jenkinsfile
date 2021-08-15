@@ -110,7 +110,7 @@ pipeline {
                      sh("ls -l ${final_efs_path}")
 		     sh("cp -pR airflow/dags/*.py ${final_efs_path}/dags")
 		     sh("ls -lrA ${final_efs_path}/dags/")
-		     sudo chown -R root:root ~/efs-mount-point
+		     sh('sudo chown -R root:root ~/efs-mount-point')
                      echo '**********************************************'
                 }
             }
