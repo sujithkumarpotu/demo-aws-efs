@@ -27,6 +27,7 @@ pipeline {
             steps {
                 script {
 		   sh'''
+		   sudo apt update
 		   aws configure set region AWS_REGION
 		   sudo apt-get -y install nfs-utils
                    mkdir -p ~/efs-mount-point
