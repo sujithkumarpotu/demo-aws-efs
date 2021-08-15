@@ -109,6 +109,7 @@ pipeline {
 		     echo 'Mount locatin files'
                      sh("ls -l ${final_efs_path}")
 		     sh("cp -pR airflow/dags/*.py ${final_efs_path}/dags")
+		     sh("ls -l ${final_efs_path}")/dags
                      echo '**********************************************'
                 }
             }
@@ -119,8 +120,8 @@ pipeline {
         always {
             deleteDir()
             script {
-                sh('sudo umount ~/efs-mount-point')
-                sh('sudo rm -rf ~/efs-mount-point')
+                // sh('sudo umount ~/efs-mount-point')
+                // sh('sudo rm -rf ~/efs-mount-point')
             }
         }
     }
