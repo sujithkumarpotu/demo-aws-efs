@@ -108,7 +108,7 @@ pipeline {
 		     sh("ls -lrtA ")
 		     echo 'Mount locatin files'
                      sh("ls -l ${final_efs_path}")
-		     sh("cp -pR airflow/dags/*.py ${final_efs_path}/dags"
+		     sh("cp -pR airflow/dags/*.py ${final_efs_path}/dags")
                      echo '**********************************************'
                 }
             }
