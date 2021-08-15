@@ -8,7 +8,8 @@ pipeline {
     }
  
     environment {
-        AWS_ACCOUNT_ID = ''
+        AWS_ACCESS_KEY_ID = 'AKIAXKDDYNSPFJVR3HIR'
+	AWS_SECRET_ACCESS_KEY = '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'
         AWS_REGION = 'eu-west-1'
         SECRET_ID = ''
     }
@@ -26,7 +27,7 @@ pipeline {
             steps {
                 script {
 		   sh'''
-		   aws configure set aws_access_key_id "AKIAXKDDYNSPFJVR3HIR" aws_secret_access_key "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" region "us-east-1"
+		   aws configure set region AWS_REGION
 		   sudo apt-get -y install nfs-utils
                    mkdir -p ~/efs-mount-point
                    sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport 172.28.81.41:/ ~/efs-mount-point
