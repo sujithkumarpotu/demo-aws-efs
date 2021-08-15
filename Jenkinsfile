@@ -104,6 +104,9 @@ pipeline {
             steps {
                 script {
                      echo '**********************************************'
+                     echo 'Current directory files'
+		     sh("ls -lrtA ")
+		     echo 'Mount locatin files'
                      sh("ls -l ${final_efs_path}")
                      echo '**********************************************'
                 }
