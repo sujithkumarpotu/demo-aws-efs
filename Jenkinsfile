@@ -12,6 +12,8 @@ pipeline {
 	AWS_SECRET_ACCESS_KEY = 'izmjBzsAZeDB4G4eY6ht8SbnplC3WFifCR3iFDdz'
         AWS_REGION = 'eu-west-1'
         SECRET_ID = ''
+	GIT_URL = "https://github.com/sujithkumarpotu/demo-aws-efs.git"
+	GIT_BRANCH = "main"
     }
  
     options {
@@ -70,6 +72,30 @@ pipeline {
                         if (stdout.contains('false')) {
                             error('No such directory on EFS: ' + efs_path)
                         }
+                }
+            }
+        }
+
+	stage ('Checkout') {
+            steps {
+                script {
+                echo "Checking out release ${GIT_BRANCH}"
+                checkout (
+                    [
+                    $class: 'GitSCM',
+                    branches: [
+                        [name: GIT_BRANCH]
+                    ],
+                    doGenerateSubmoduleConfigurations: false,
+                    submoduleCfg: [],
+                    userRemoteConfigs: [
+                        [
+                        // credentialsId: GIT_CREDENTIALS,
+                        url: GIT_URL
+                        ]
+                    ]
+                    ]
+                )
                 }
             }
         }
