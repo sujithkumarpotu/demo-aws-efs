@@ -26,11 +26,13 @@ pipeline {
         stage('Mount EFS') {
             steps {
                 script {
-		   sh('aws configure set aws_access_key_id "AKIAXKDDYNSPFJVR3HIR" aws_secret_access_key "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" region "us-east-1"')
-		   sh('sudo apt-get -y install nfs-utils')
-                   sh('mkdir -p ~/efs-mount-point')
-                   sh('sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport 172.28.81.41:/ ~/efs-mount-point')
-                   sh('sudo chown -R jenkins:jenkins ~/efs-mount-point')
+		   sh'''
+		   aws configure set aws_access_key_id "AKIAXKDDYNSPFJVR3HIR" aws_secret_access_key "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" region "us-east-1"
+		   sudo apt-get -y install nfs-utils
+                   mkdir -p ~/efs-mount-point
+                   sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport 172.28.81.41:/ ~/efs-mount-point
+                   sudo chown -R jenkins:jenkins ~/efs-mount-point
+		   '''
                 }
             }
         }
